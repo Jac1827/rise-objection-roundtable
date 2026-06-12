@@ -951,7 +951,12 @@ function renderReporting(){
       <table class="report-table">
         <thead><tr><th>Objection</th><th>Category</th><th>Submitted by</th><th>Date</th></tr></thead>
         <tbody>
-                    </tr>`).join('')}
+          ${db.custom.map(c=>`<tr>
+            <td>${esc(c.objection_text)}</td>
+            <td style="color:var(--text-secondary)">${esc(c.category||'Uncategorized')}</td>
+            <td style="color:var(--text-secondary)">${esc(c.name||'Anonymous')}</td>
+            <td style="color:var(--text-muted);font-size:12px">${fmtDate(c.created_at)}</td>
+          </tr>`).join('')}
         </tbody>
       </table>
     </div>`:''}
