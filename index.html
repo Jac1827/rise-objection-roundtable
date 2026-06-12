@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISE | Leasing Objection Roundtable</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+
+  :root {
+    --rise-dark: #013e51;
+    --rise-mid: #6ba2b8;
+    --rise-gold: #c9a84c;
+    --rise-light: #e8f2f7;
+    --rise-lighter: #f4f9fb;
+    --text-primary: #0d2630;
+    --text-secondary: #4a6b79;
+    --text-muted: #8aa7b3;
+    --border: #d0e4ed;
+    --surface: #ffffff;
+    --bg: #f0f6f9;
+    --success: #1a7a4a;
+    --success-bg: #e8f7ef;
+    --warning-bg: #fef8ec;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--rise-dark);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(1,62,81,0.18);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .logo-block { display: flex; align-items: center; gap: 14px; }
+  .logo-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .logo-divider { width: 1px; height: 28px; background: rgba(107,162,184,0.4); }
+  .header-title { font-size: 13px; color: var(--rise-mid); font-weight: 400; letter-spacing: 0.02em; }
+  .live-indicator {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12px; color: var(--rise-mid);
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4cd98a;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* MAIN LAYOUT */
+  .main-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+  }
+
+  /* NAME BAR */
+  .name-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .name-bar label { font-size: 13px; color: var(--text-secondary); font-weight: 500; white-space: nowrap; }
+  .name-bar input {
+    flex: 1; min-width: 160px; max-width: 280px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    background: var(--bg);
+    transition: border-color 0.15s;
+  }
+  .name-bar input:focus { outline: none; border-color: var(--rise-mid); }
+  .name-status { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+  .name-status strong { color: var(--rise-dark); font-weight: 600; }
+
+  /* TABS */
+  .tabs {
+    display: flex; gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none; background: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--rise-dark); }
+  .tab-btn.active { color: var(--rise-dark); border-bottom-color: var(--rise-dark); }
+  .tab-badge {
+    display: inline-block; margin-left: 6px;
+    background: var(--rise-mid); color: #fff;
+    font-size: 10px; padding: 1px 6px;
+    border-radius: 10px; font-weight: 600;
+    vertical-align: middle;
+  }
+  .tab-badge.gold { background: var(--rise-gold); }
+
+  .tab-section { display: none; }
+  .tab-section.active { display: block; }
+
+  /* CATEGORY SECTION */
+  .cat-section { margin-bottom: 32px; }
+  .cat-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .cat-pill {
+    display: inline-flex; align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .cat-count { font-size: 12px; color: var(--text-muted); }
+
+  /* OBJECTION CARD */
+  .obj-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+  }
+  .obj-card:hover { box-shadow: 0 2px 12px rgba(1,62,81,0.08); }
+  .obj-header {
+    display: flex; align-items: center;
+    padding: 14px 18px;
+    cursor: pointer;
+    gap: 12px;
+  }
+  .obj-num {
+    width: 26px; height: 26px;
+    background: var(--rise-lighter);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600;
+    color: var(--rise-dark);
+    flex-shrink: 0;
+  }
+  .obj-text { flex: 1; font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .obj-meta { display: flex; align-items: center; gap: 8px; }
+  .response-count {
+    font-size: 11px; font-weight: 600;
+    color: var(--rise-mid);
+    background: var(--rise-light);
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .response-count.has-data { color: var(--rise-dark); background: var(--rise-light); }
+  .chevron-icon { color: var(--text-muted); font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
+  .chevron-icon.open { transform: rotate(180deg); }
+
+  .obj-body { display: none; border-top: 1px solid var(--border); }
+  .obj-body.open { display: block; }
+
+  .obj-body-inner { padding: 16px 18px; }
+
+  /* FREQUENCY SELECTOR */
+  .field-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .freq-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .freq-opt {
+    padding: 5px 13px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text-secondary);
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .freq-opt:hover { border-color: var(--rise-mid); color: var(--rise-dark); }
+  .freq-opt.selected { background: var(--rise-dark); color: #fff; border-color: var(--rise-dark); }
+
+  /* TEXTAREA */
+  .field-wrap { margin-bottom: 12px; }
+  textarea.field-input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--bg);
+    resize: vertical;
+    min-height: 72px;
+    transition: border-color 0.15s;
+    line-height: 1.5;
+  }
+  textarea.field-input:focus { outline: none; border-color: var(--rise-mid); background: #fff; }
+  textarea.field-input.short { min-height: 52px; }
+
+  /* SUBMIT BUTTON */
+  .btn-submit {
+    background: var(--rise-dark);
+    color: #fff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit:hover { background: #025370; }
+  .btn-submit:disabled { opacity: 0.6; cursor: default; }
+  .btn-submit.loading::after {
+    content: '';
+    width: 13px; height: 13px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* EXISTING RESPONSES */
+  .responses-section {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .responses-heading {
+    font-size: 12px; font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .response-item {
+    background: var(--rise-lighter);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--rise-mid);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .response-item.mine { border-left-color: var(--rise-gold); }
+  .r-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .r-name { font-size: 12px; font-weight: 600; color: var(--rise-dark); }
+  .r-freq { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; color: #fff; }
+  .r-freq.rarely { background: #8aa7b3; }
+  .r-freq.sometimes { background: var(--rise-mid); }
+  .r-freq.often { background: #3a7a9c; }
+  .r-freq.almost-always { background: var(--rise-dark); }
+  .r-time { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+  .r-response { font-size: 13px; color: var(--text-primary); line-height: 1.55; }
+  .r-story { font-size: 12px; color: var(--text-secondary); margin-top: 5px; font-style: italic; line-height: 1.4; }
+  .r-story::before { content: '💬 '; }
+
+  /* STATS OVERVIEW */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--rise-dark); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+  .stat-card.accent { background: var(--rise-dark); border-color: var(--rise-dark); }
+  .stat-card.accent .stat-num { color: #fff; }
+  .stat-card.accent .stat-label { color: var(--rise-mid); }
+
+  /* DASHBOARD CHARTS */
+  .dashboard-section { margin-bottom: 32px; }
+  .section-title {
+    font-size: 15px; font-weight: 600;
+    color: var(--rise-dark);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .heat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+  .heat-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .heat-bar-wrap { flex: 1; }
+  .heat-label { font-size: 12px; color: var(--text-primary); margin-bottom: 4px; line-height: 1.3; }
+  .heat-bar-bg { height: 5px; background: var(--border); border-radius: 3px; }
+  .heat-bar-fill { height: 5px; border-radius: 3px; background: var(--rise-mid); transition: width 0.4s; }
+  .heat-bar-fill.high { background: var(--rise-dark); }
+  .heat-count { font-size: 13px; font-weight: 600; color: var(--rise-dark); min-width: 28px; text-align: right; }
+
+  /* TOP RESPONSES */
+  .top-response-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+  }
+  .top-obj-label { font-size: 11px; font-weight: 600; color: var(--rise-mid); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .top-obj-text { font-size: 14px; font-weight: 500; color: var(--rise-dark); margin-bottom: 8px; }
+  .top-response-text { font-size: 13px; color: var(--text-primary); line-height: 1.55; padding: 8px 12px; background: var(--rise-lighter); border-radius: 6px; }
+  .top-meta { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+
+  /* BONUS / DISCUSSION */
+  .bonus-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .bonus-q {
+    font-size: 15px; font-weight: 500;
+    color: var(--rise-dark);
+    margin-bottom: 12px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .q-num {
+    background: var(--rise-mid); color: #fff;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* CHALLENGE */
+  .challenge-hero {
+    background: var(--rise-dark);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .challenge-hero h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; color: #fff;
+    margin-bottom: 4px;
+  }
+  .challenge-hero p { font-size: 13px; color: var(--rise-mid); }
+  .challenge-field-label { font-size: 12px; font-weight: 600; color: var(--rise-mid); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  textarea.challenge-input {
+    width: 100%; resize: vertical; min-height: 64px;
+    padding: 10px 12px;
+    background: rgba(107,162,184,0.1);
+    border: 1px solid rgba(107,162,184,0.3);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    line-height: 1.5;
+    transition: border-color 0.15s;
+    margin-bottom: 12px;
+  }
+  textarea.challenge-input::placeholder { color: rgba(107,162,184,0.6); }
+  textarea.challenge-input:focus { outline: none; border-color: var(--rise-mid); background: rgba(107,162,184,0.15); }
+  .challenge-field-label-dark { font-size: 12px; font-weight: 600; color: var(--rise-mid); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .btn-challenge {
+    background: var(--rise-gold); color: var(--rise-dark);
+    border: none; padding: 9px 20px;
+    border-radius: 8px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 6px;
+  }
+  .btn-challenge:hover { background: #d4b05c; }
+
+  .story-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .story-num {
+    position: absolute; top: -10px; left: 16px;
+    background: var(--rise-gold); color: var(--rise-dark);
+    font-size: 11px; font-weight: 700;
+    padding: 2px 10px; border-radius: 10px;
+  }
+  .story-section-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; margin-top: 10px; }
+  .story-section-label:first-child { margin-top: 0; }
+  .story-text { font-size: 13px; color: var(--text-primary); line-height: 1.55; }
+  .story-author { font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--rise-dark); color: #fff;
+    padding: 12px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    box-shadow: 0 4px 20px rgba(1,62,81,0.25);
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.3s; z-index: 999;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { background: var(--success); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center; padding: 40px 20px;
+    color: var(--text-muted); font-size: 13px;
+  }
+  .empty-state svg { margin-bottom: 12px; opacity: 0.4; }
+
+  /* LOADING */
+  .loading-overlay {
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px; color: var(--text-muted); font-size: 13px; gap: 10px;
+  }
+  .spin-sm {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--rise-mid);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+
+  /* REFRESH INDICATOR */
+  .refresh-bar {
+    font-size: 11px; color: var(--text-muted);
+    text-align: right; margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: flex-end; gap: 6px;
+  }
+  .btn-refresh {
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px;
+    font-size: 11px; color: var(--text-secondary);
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: all 0.12s;
+  }
+  .btn-refresh:hover { border-color: var(--rise-mid); color: var(--rise-dark); }
+
+  @media (max-width: 640px) {
+    .main-wrap { padding: 16px 14px 40px; }
+    .header-inner { padding: 0 14px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .tabs { gap: 0; }
+    .tab-btn { padding: 10px 12px; font-size: 12px; }
+  }
+
+  /* ADMIN */
+  .admin-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--rise-gold); color: var(--rise-dark);
+    font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 10px;
+    letter-spacing: 0.03em;
+  }
+  .btn-admin-login {
+    background: none; border: 1px solid rgba(107,162,184,0.5);
+    border-radius: 6px; padding: 5px 12px;
+    font-size: 12px; color: var(--rise-mid);
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-admin-login:hover { border-color: var(--rise-gold); color: var(--rise-gold); }
+  .btn-delete {
+    background: none;
+    border: 1px solid #e8b4b4;
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 11px; font-weight: 500;
+    color: #c0392b;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.12s;
+    display: inline-flex; align-items: center; gap: 4px;
+    flex-shrink: 0;
+  }
+  .btn-delete:hover { background: #fdf0f0; border-color: #c0392b; }
+  .admin-panel-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .admin-panel-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--rise-dark);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .admin-record {
+    display: flex; align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .admin-record:last-child { border-bottom: none; padding-bottom: 0; }
+  .admin-record-body { flex: 1; min-width: 0; }
+  .admin-record-meta { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+  .admin-record-text { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
+  .admin-record-obj { font-size: 11px; font-weight: 600; color: var(--rise-mid); margin-bottom: 2px; }
+  .admin-pw-modal {
+    position: fixed; inset: 0;
+    background: rgba(1,30,42,0.6);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 500;
+  }
+  .admin-pw-box {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 28px 30px;
+    width: 340px;
+    box-shadow: 0 8px 40px rgba(1,62,81,0.2);
+  }
+  .admin-pw-box h3 { font-size: 17px; font-weight: 600; color: var(--rise-dark); margin-bottom: 6px; }
+  .admin-pw-box p { font-size: 13px; color: var(--text-secondary); margin-bottom: 18px; }
+  .admin-pw-input {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 14px; font-family: 'Inter', sans-serif;
+    color: var(--text-primary); background: var(--bg);
+    margin-bottom: 12px;
+  }
+  .admin-pw-input:focus { outline: none; border-color: var(--rise-mid); }
+  .admin-pw-row { display: flex; gap: 8px; }
+  .btn-pw-submit {
+    flex: 1; background: var(--rise-dark); color: #fff;
+    border: none; border-radius: 8px; padding: 9px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer;
+  }
+  .btn-pw-submit:hover { background: #025370; }
+  .btn-pw-cancel {
+    background: none; border: 1px solid var(--border);
+    border-radius: 8px; padding: 9px 16px;
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    color: var(--text-secondary); cursor: pointer;
+  }
+  .pw-error { font-size: 12px; color: #c0392b; margin-bottom: 10px; display: none; }
+  .btn-nuke {
+    background: none; border: 1px solid #e8b4b4;
+    border-radius: 8px; padding: 8px 16px;
+    font-size: 12px; font-weight: 500; color: #c0392b;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: all 0.12s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-nuke:hover { background: #fdf0f0; border-color: #c0392b; }
+  .admin-logout {
+    background: none; border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 6px; padding: 4px 10px;
+    font-size: 11px; color: var(--rise-gold);
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    margin-left: 8px;
+  }
+  .admin-logout:hover { border-color: var(--rise-gold); }
+  .confirm-overlay {
+    position: fixed; inset: 0;
+    background: rgba(1,30,42,0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 600;
+  }
+  .confirm-box {
+    background: var(--surface); border-radius: 12px;
+    padding: 24px 26px; width: 320px;
+    box-shadow: 0 6px 30px rgba(1,62,81,0.18);
+  }
+  .confirm-box h4 { font-size: 15px; font-weight: 600; color: var(--rise-dark); margin-bottom: 8px; }
+  .confirm-box p { font-size: 13px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.5; }
+  .confirm-row { display: flex; gap: 8px; justify-content: flex-end; }
+  .btn-confirm-cancel { background: none; border: 1px solid var(--border); border-radius: 7px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 13px; cursor: pointer; color: var(--text-secondary); }
+  .btn-confirm-delete { background: #c0392b; color: #fff; border: none; border-radius: 7px; padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .btn-confirm-delete:hover { background: #a93226; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <span class="logo-mark">RISE</span>
+      <div class="logo-divider"></div>
+      <span class="header-title">Leasing Objection Roundtable</span>
+    </div>
+    <div class="live-indicator">
+      <div class="live-dot"></div>
+      <span id="live-label">Live — loading…</span>
+      <span id="admin-header-badge" style="display:none" class="admin-badge">⚙ Admin</span>
+      <button class="btn-admin-login" id="admin-login-btn" onclick="openAdminLogin()">Admin</button>
+      <button class="admin-logout" id="admin-logout-btn" style="display:none" onclick="adminLogout()">Log out</button>
+    </div>
+  </div>
+</header>
+
+<div class="main-wrap">
+
+  <!-- NAME BAR -->
+  <div class="name-bar">
+    <label for="global-name">Your name</label>
+    <input type="text" id="global-name" placeholder="e.g. Sarah M., Leasing — Nocatee" maxlength="60" />
+    <span class="name-status" id="name-status">Enter your name so teammates see who's sharing.</span>
+  </div>
+
+  <!-- TABS -->
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" onclick="switchTab('objections')" role="tab">Objections <span class="tab-badge" id="badge-obj">0</span></button>
+    <button class="tab-btn" onclick="switchTab('dashboard')" role="tab">Live Dashboard <span class="tab-badge gold" id="badge-dash">Live</span></button>
+    <button class="tab-btn" onclick="switchTab('discussion')" role="tab">Discussion <span class="tab-badge" id="badge-disc">0</span></button>
+    <button class="tab-btn" onclick="switchTab('challenge')" role="tab">Team Challenge <span class="tab-badge" id="badge-ch">0</span></button>
+    <button class="tab-btn" id="admin-tab-btn" style="display:none" onclick="switchTab('admin')" role="tab">⚙ Admin</button>
+  </nav>
+
+  <!-- OBJECTIONS TAB -->
+  <div id="tab-objections" class="tab-section active">
+    <div class="refresh-bar">
+      <span id="last-sync-obj">—</span>
+      <button class="btn-refresh" onclick="loadAllData()">↻ Refresh</button>
+    </div>
+    <div id="objections-container"></div>
+  </div>
+
+  <!-- DASHBOARD TAB -->
+  <div id="tab-dashboard" class="tab-section">
+    <div class="refresh-bar">
+      <span id="last-sync-dash">—</span>
+      <button class="btn-refresh" onclick="loadAllData(); renderDashboard()">↻ Refresh</button>
+    </div>
+    <div id="dashboard-container">
+      <div class="loading-overlay"><div class="spin-sm"></div> Loading team data…</div>
+    </div>
+  </div>
+
+  <!-- DISCUSSION TAB -->
+  <div id="tab-discussion" class="tab-section">
+    <div class="refresh-bar">
+      <span id="last-sync-disc">—</span>
+      <button class="btn-refresh" onclick="loadAllData()">↻ Refresh</button>
+    </div>
+    <div id="discussion-container"></div>
+  </div>
+
+  <!-- CHALLENGE TAB -->
+  <div id="tab-challenge" class="tab-section">
+    <div class="refresh-bar">
+      <span id="last-sync-ch">—</span>
+      <button class="btn-refresh" onclick="loadAllData()">↻ Refresh</button>
+    </div>
+    <div class="challenge-hero">
+      <h2>Team Challenge</h2>
+      <p>Share your best "I thought they were lost, but they signed" story from the last 30 days.</p>
+    </div>
+    <div style="background:#013e51; border-radius:12px; padding:20px 22px; margin-bottom:20px;">
+      <div class="challenge-field-label-dark">1 — What was the objection?</div>
+      <textarea class="challenge-input" id="ch-objection" placeholder="e.g. They said the rent was too high and went quiet for two weeks…"></textarea>
+      <div class="challenge-field-label-dark">2 — How did you respond?</div>
+      <textarea class="challenge-input" id="ch-response" placeholder="Walk us through what you said or did…"></textarea>
+      <div class="challenge-field-label-dark">3 — What ultimately convinced them to sign?</div>
+      <textarea class="challenge-input" id="ch-close" placeholder="The specific thing that finally moved them…"></textarea>
+      <button class="btn-challenge" id="ch-submit-btn" onclick="submitChallenge()">⭐ Share My Story</button>
+    </div>
+    <div id="challenge-stories-list"></div>
+  </div>
+
+  <!-- ADMIN TAB -->
+  <div id="tab-admin" class="tab-section">
+    <div class="refresh-bar">
+      <span id="last-sync-admin">—</span>
+      <button class="btn-refresh" onclick="loadAllData(); renderAdminPanel()">↻ Refresh</button>
+    </div>
+    <div id="admin-panel-container"></div>
+  </div>
+
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="admin-pw-modal" id="admin-pw-modal" style="display:none">
+  <div class="admin-pw-box">
+    <h3>Admin access</h3>
+    <p>Enter the admin password to manage and delete submissions.</p>
+    <div class="pw-error" id="pw-error">Incorrect password. Try again.</div>
+    <input type="password" class="admin-pw-input" id="admin-pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkAdminPw()" />
+    <div class="admin-pw-row">
+      <button class="btn-pw-cancel" onclick="closeAdminLogin()">Cancel</button>
+      <button class="btn-pw-submit" onclick="checkAdminPw()">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="confirm-overlay" id="confirm-overlay" style="display:none">
+  <div class="confirm-box">
+    <h4 id="confirm-title">Delete this record?</h4>
+    <p id="confirm-msg">This will permanently remove the entry for all users. This cannot be undone.</p>
+    <div class="confirm-row">
+      <button class="btn-confirm-cancel" onclick="cancelConfirm()">Cancel</button>
+      <button class="btn-confirm-delete" onclick="executeConfirm()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA SCHEMA ───────────────────────────────────────────────────────────────
+const STORAGE_KEYS = {
+  objections: 'rise_roundtable_objections_v2',
+  bonus: 'rise_roundtable_bonus_v2',
+  challenge: 'rise_roundtable_challenge_v2',
+};
+
+const OBJECTIONS = [
+  { id: 1, cat: 'price', text: 'The rent is too expensive.' },
+  { id: 2, cat: 'price', text: 'I found something cheaper nearby.' },
+  { id: 3, cat: 'decision', text: 'I need to think about it.' },
+  { id: 4, cat: 'decision', text: 'I need to talk to my spouse / roommate / parent first.' },
+  { id: 5, cat: 'decision', text: 'I\'m looking at several communities.' },
+  { id: 6, cat: 'timing', text: 'The move-in date doesn\'t work for me.' },
+  { id: 7, cat: 'unit', text: 'I don\'t like the floor plan.' },
+  { id: 8, cat: 'unit', text: 'The apartment is too small.' },
+  { id: 9, cat: 'unit', text: 'The apartment is too large.' },
+  { id: 10, cat: 'unit', text: 'I need more storage.' },
+  { id: 11, cat: 'unit', text: 'I don\'t want a first-floor apartment.' },
+  { id: 12, cat: 'unit', text: 'I don\'t want a top-floor apartment.' },
+  { id: 13, cat: 'unit', text: 'Parking is a concern.' },
+  { id: 14, cat: 'unit', text: 'I have a pet and I\'m worried about restrictions / fees.' },
+  { id: 15, cat: 'location', text: 'I don\'t like the location of the apartment.' },
+  { id: 16, cat: 'location', text: 'The commute is too far.' },
+  { id: 17, cat: 'timing', text: 'I need to wait until my current lease ends.' },
+  { id: 18, cat: 'price', text: 'The application fee is too high.' },
+  { id: 19, cat: 'qualify', text: 'I\'m concerned about my credit / background.' },
+  { id: 20, cat: 'decision', text: 'I\'m waiting on another property to call me back.' },
+  { id: 21, cat: 'decision', text: 'I don\'t want to make a decision today.' },
+  { id: 22, cat: 'decision', text: 'I need more time to compare options.' },
+  { id: 23, cat: 'value', text: 'The amenities aren\'t important to me.' },
+  { id: 24, cat: 'value', text: 'I heard negative reviews online.' },
+  { id: 25, cat: 'value', text: 'I\'m worried about safety / security.' },
+  { id: 26, cat: 'timing', text: 'The unit isn\'t available when I need it.' },
+  { id: 27, cat: 'price', text: 'I can get more incentives elsewhere.' },
+  { id: 28, cat: 'price', text: 'I don\'t like paying utility / convenience fees.' },
+  { id: 29, cat: 'price', text: 'The monthly payment is more than I budgeted.' },
+];
+
+const CATEGORIES = {
+  price:    { label: 'Price & Value', color: '#013e51', text: '#fff' },
+  decision: { label: 'Decision Delay', color: '#2a6b9c', text: '#fff' },
+  timing:   { label: 'Timing', color: '#b07d1a', text: '#fff' },
+  unit:     { label: 'Unit Fit', color: '#2a7a5a', text: '#fff' },
+  location: { label: 'Location', color: '#6b3fa0', text: '#fff' },
+  qualify:  { label: 'Qualification', color: '#b04a25', text: '#fff' },
+  value:    { label: 'Perceived Value', color: '#3a5a8c', text: '#fff' },
+};
+
+const BONUS_QUESTIONS = [
+  "What's the hardest objection to overcome right now?",
+  "Which objection are you closing most successfully?",
+  "What's a phrase or question you use that consistently changes the conversation?",
+  "What's one objection you wish you had a better response for?",
+];
+
+const FREQS = ['Rarely', 'Sometimes', 'Often', 'Almost always'];
+const FREQ_CLASSES = { 'Rarely': 'rarely', 'Sometimes': 'sometimes', 'Often': 'often', 'Almost always': 'almost-always' };
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let sharedData = { objections: {}, bonus: {}, challenge: [] };
+let localSelections = {};  // { objId: { freq, response, story } }
+let currentTab = 'objections';
+let lastSyncTime = null;
+let autoRefreshTimer = null;
+
+// ─── STORAGE (shared across all browsers) ────────────────────────────────────
+async function loadAllData() {
+  try {
+    const [objRes, bonusRes, challengeRes] = await Promise.all([
+      window.storage.get(STORAGE_KEYS.objections, true).catch(() => null),
+      window.storage.get(STORAGE_KEYS.bonus, true).catch(() => null),
+      window.storage.get(STORAGE_KEYS.challenge, true).catch(() => null),
+    ]);
+    sharedData.objections = objRes ? JSON.parse(objRes.value) : {};
+    sharedData.bonus = bonusRes ? JSON.parse(bonusRes.value) : {};
+    sharedData.challenge = challengeRes ? JSON.parse(challengeRes.value) : [];
+  } catch (e) {
+    sharedData = { objections: {}, bonus: {}, challenge: [] };
+  }
+  lastSyncTime = new Date();
+  updateBadges();
+  updateSyncLabels();
+  renderObjectionsExisting();
+  renderDiscussion();
+  renderChallengeStories();
+  if (currentTab === 'dashboard') renderDashboard();
+}
+
+async function saveObjData() {
+  await window.storage.set(STORAGE_KEYS.objections, JSON.stringify(sharedData.objections), true);
+}
+async function saveBonusData() {
+  await window.storage.set(STORAGE_KEYS.bonus, JSON.stringify(sharedData.bonus), true);
+}
+async function saveChallengeData() {
+  await window.storage.set(STORAGE_KEYS.challenge, JSON.stringify(sharedData.challenge), true);
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function getName() {
+  return document.getElementById('global-name').value.trim() || 'Anonymous';
+}
+
+function ts() { return Date.now(); }
+
+function formatTime(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const diff = now - d;
+  if (diff < 60000) return 'just now';
+  if (diff < 3600000) return Math.floor(diff/60000) + 'm ago';
+  if (diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function syncLabel(t) {
+  if (!t) return '—';
+  return 'Updated ' + formatTime(t);
+}
+
+function showToast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type === 'success' ? ' success' : '');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => el.className = 'toast', 2800);
+}
+
+function updateBadges() {
+  const totalObj = Object.values(sharedData.objections).reduce((a, b) => a + b.length, 0);
+  const totalBonus = Object.values(sharedData.bonus).reduce((a, b) => a + b.length, 0);
+  const totalCh = sharedData.challenge.length;
+  document.getElementById('badge-obj').textContent = totalObj;
+  document.getElementById('badge-disc').textContent = totalBonus;
+  document.getElementById('badge-ch').textContent = totalCh;
+  document.getElementById('live-label').textContent = `Live · ${totalObj} responses`;
+}
+
+function updateSyncLabels() {
+  const s = syncLabel(lastSyncTime);
+  ['obj','dash','disc','ch'].forEach(id => {
+    const el = document.getElementById('last-sync-' + id);
+    if (el) el.textContent = s;
+  });
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+function switchTab(t) {
+  currentTab = t;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['objections','dashboard','discussion','challenge','admin'][i] === t);
+  });
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('tab-' + t).classList.add('active');
+  if (t === 'dashboard') renderDashboard();
+  if (t === 'admin') renderAdminPanel();
+}
+
+// ─── NAME ─────────────────────────────────────────────────────────────────────
+document.getElementById('global-name').addEventListener('input', function() {
+  const v = this.value.trim();
+  document.getElementById('name-status').innerHTML = v
+    ? `Submitting as <strong>${v}</strong>`
+    : 'Enter your name so teammates see who\'s sharing.';
+});
+
+// ─── OBJECTIONS ──────────────────────────────────────────────────────────────
+function buildObjectionsUI() {
+  const container = document.getElementById('objections-container');
+  const cats = Object.keys(CATEGORIES);
+  let html = '';
+  cats.forEach(cat => {
+    const catObjs = OBJECTIONS.filter(o => o.cat === cat);
+    const c = CATEGORIES[cat];
+    html += `<div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-pill" style="background:${c.color};color:${c.text}">${c.label}</span>
+        <span class="cat-count" id="cat-count-${cat}"></span>
+      </div>`;
+    catObjs.forEach(obj => {
+      html += `<div class="obj-card" id="objcard-${obj.id}">
+        <div class="obj-header" onclick="toggleObj(${obj.id})">
+          <div class="obj-num">${obj.id}</div>
+          <div class="obj-text">${obj.text}</div>
+          <div class="obj-meta">
+            <span class="response-count" id="rcount-${obj.id}">0 responses</span>
+            <span class="chevron-icon" id="chev-${obj.id}">⌄</span>
+          </div>
+        </div>
+        <div class="obj-body" id="objbody-${obj.id}">
+          <div class="obj-body-inner">
+            <div class="field-label">How often do you hear this?</div>
+            <div class="freq-row" id="freq-row-${obj.id}">
+              ${FREQS.map(f => `<span class="freq-opt" data-freq="${f}" data-obj="${obj.id}" onclick="selectFreq(${obj.id},'${f}',this)">${f}</span>`).join('')}
+            </div>
+            <div class="field-wrap">
+              <div class="field-label">Your best response / what's worked</div>
+              <textarea class="field-input" id="resp-${obj.id}" placeholder="Share the response or technique that's actually closed for you…"></textarea>
+            </div>
+            <div class="field-wrap">
+              <div class="field-label">Recent success story <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--text-muted)">(optional)</span></div>
+              <textarea class="field-input short" id="story-${obj.id}" placeholder="Briefly describe a win with this objection…"></textarea>
+            </div>
+            <button class="btn-submit" id="objbtn-${obj.id}" onclick="submitObj(${obj.id})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              Submit response
+            </button>
+            <div id="existing-${obj.id}" class="responses-section" style="display:none;"></div>
+          </div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  container.innerHTML = html;
+  renderObjectionsExisting();
+}
+
+function toggleObj(id) {
+  const body = document.getElementById('objbody-' + id);
+  const chev = document.getElementById('chev-' + id);
+  const open = body.classList.toggle('open');
+  chev.classList.toggle('open', open);
+}
+
+function selectFreq(objId, freq, el) {
+  document.querySelectorAll(`[data-obj="${objId}"].freq-opt`).forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  if (!localSelections[objId]) localSelections[objId] = {};
+  localSelections[objId].freq = freq;
+}
+
+async function submitObj(id) {
+  const response = (document.getElementById('resp-' + id)?.value || '').trim();
+  const story = (document.getElementById('story-' + id)?.value || '').trim();
+  const freq = localSelections[id]?.freq || '';
+  if (!response) { showToast('Please enter a response before submitting.'); return; }
+
+  const btn = document.getElementById('objbtn-' + id);
+  btn.disabled = true; btn.classList.add('loading'); btn.textContent = '';
+
+  const entry = { name: getName(), freq, response, story, ts: ts() };
+  if (!sharedData.objections[id]) sharedData.objections[id] = [];
+  sharedData.objections[id].push(entry);
+  await saveObjData();
+
+  btn.disabled = false; btn.classList.remove('loading');
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Submit response';
+
+  document.getElementById('resp-' + id).value = '';
+  document.getElementById('story-' + id).value = '';
+  if (localSelections[id]) localSelections[id].freq = '';
+  document.querySelectorAll(`[data-obj="${id}"].freq-opt`).forEach(b => b.classList.remove('selected'));
+
+  updateBadges();
+  renderObjectionsExisting();
+  showToast('✓ Response saved and shared with the team.', 'success');
+}
+
+function renderObjectionsExisting() {
+  OBJECTIONS.forEach(obj => {
+    const entries = sharedData.objections[obj.id] || [];
+    const countEl = document.getElementById('rcount-' + obj.id);
+    const panel = document.getElementById('existing-' + obj.id);
+    if (!countEl || !panel) return;
+
+    countEl.textContent = entries.length ? `${entries.length} response${entries.length > 1 ? 's' : ''}` : '0 responses';
+    countEl.className = 'response-count' + (entries.length ? ' has-data' : '');
+
+    if (!entries.length) { panel.style.display = 'none'; return; }
+    panel.style.display = 'block';
+    const myName = getName();
+    panel.innerHTML = `<div class="responses-heading">${entries.length} team response${entries.length > 1 ? 's' : ''}</div>` +
+      entries.slice().reverse().map(e => `
+        <div class="response-item ${e.name === myName ? 'mine' : ''}">
+          <div class="r-top">
+            <span class="r-name">${e.name || 'Anonymous'}</span>
+            ${e.freq ? `<span class="r-freq ${FREQ_CLASSES[e.freq] || ''}">${e.freq}</span>` : ''}
+            <span class="r-time">${formatTime(e.ts)}</span>
+            ${isAdmin ? `<button class="btn-delete" onclick="deleteObjResponse(${obj.id}, ${e.ts})" style="margin-left:auto">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+              Delete</button>` : ''}
+          </div>
+          <div class="r-response">${escHtml(e.response)}</div>
+          ${e.story ? `<div class="r-story">${escHtml(e.story)}</div>` : ''}
+        </div>`).join('');
+  });
+
+  // update category counts
+  Object.keys(CATEGORIES).forEach(cat => {
+    const catObjs = OBJECTIONS.filter(o => o.cat === cat);
+    const total = catObjs.reduce((sum, o) => sum + (sharedData.objections[o.id] || []).length, 0);
+    const el = document.getElementById('cat-count-' + cat);
+    if (el) el.textContent = total ? `${total} response${total > 1 ? 's' : ''} shared` : '';
+  });
+}
+
+// ─── DASHBOARD ───────────────────────────────────────────────────────────────
+function renderDashboard() {
+  const container = document.getElementById('dashboard-container');
+  const allEntries = OBJECTIONS.map(o => ({
+    ...o, entries: sharedData.objections[o.id] || []
+  }));
+  const totalResp = allEntries.reduce((s, o) => s + o.entries.length, 0);
+  const covered = allEntries.filter(o => o.entries.length > 0).length;
+  const contributors = new Set(Object.values(sharedData.objections).flat().map(e => e.name)).size;
+  const stories = sharedData.challenge.length;
+
+  const sorted = allEntries.slice().sort((a, b) => b.entries.length - a.entries.length);
+  const maxCount = sorted[0]?.entries.length || 1;
+
+  // Frequency heatmap data
+  const freqTotals = {};
+  FREQS.forEach(f => freqTotals[f] = 0);
+  Object.values(sharedData.objections).flat().forEach(e => {
+    if (e.freq) freqTotals[e.freq] = (freqTotals[e.freq] || 0) + 1;
+  });
+
+  // Top 5 most heard
+  const top5 = sorted.filter(o => o.entries.length > 0).slice(0, 5);
+
+  // Best responses (longest/most detailed)
+  const topResponses = allEntries
+    .filter(o => o.entries.length > 0)
+    .map(o => ({ ...o, best: o.entries.reduce((a, b) => a.response.length > b.response.length ? a : b) }))
+    .sort((a, b) => b.best.response.length - a.best.response.length)
+    .slice(0, 4);
+
+  container.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card accent">
+        <div class="stat-num">${totalResp}</div>
+        <div class="stat-label">Total responses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">${covered}</div>
+        <div class="stat-label">Objections covered (of 29)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">${contributors}</div>
+        <div class="stat-label">Team members contributing</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">${stories}</div>
+        <div class="stat-label">Success stories shared</div>
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <div class="section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        Response volume by objection
+      </div>
+      <div class="heat-grid">
+        ${sorted.map(o => {
+          const pct = o.entries.length ? Math.round((o.entries.length / maxCount) * 100) : 0;
+          const isHigh = o.entries.length >= (maxCount * 0.6);
+          const cat = CATEGORIES[o.cat];
+          return `<div class="heat-item">
+            <div class="heat-bar-wrap">
+              <div class="heat-label" style="font-size:11px">${o.text}</div>
+              <div class="heat-bar-bg"><div class="heat-bar-fill ${isHigh ? 'high' : ''}" style="width:${pct}%"></div></div>
+            </div>
+            <div class="heat-count">${o.entries.length}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <div class="section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        How often objections are heard
+      </div>
+      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+        ${FREQS.map(f => `<div class="stat-card">
+          <div class="stat-num" style="font-size:26px">${freqTotals[f] || 0}</div>
+          <div class="stat-label">"${f}"</div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    ${top5.length ? `<div class="dashboard-section">
+      <div class="section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+        Most-discussed objections
+      </div>
+      ${top5.map((o, i) => {
+        const c = CATEGORIES[o.cat];
+        return `<div class="top-response-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--rise-dark);width:26px">${i+1}</span>
+            <span class="cat-pill" style="background:${c.color};color:${c.text};font-size:10px">${c.label}</span>
+            <span style="font-size:12px;color:var(--text-muted);margin-left:auto">${o.entries.length} response${o.entries.length > 1 ? 's' : ''}</span>
+          </div>
+          <div class="top-obj-text">${o.text}</div>
+          ${o.entries.slice(-1).map(e=>`<div class="top-response-text">${escHtml(e.response)}</div><div class="top-meta">${e.name} · ${formatTime(e.ts)}</div>`).join('')}
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+
+    ${topResponses.length ? `<div class="dashboard-section">
+      <div class="section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Most detailed responses from the team
+      </div>
+      ${topResponses.map(o => {
+        const c = CATEGORIES[o.cat];
+        return `<div class="top-response-card">
+          <div class="top-obj-label">${c.label}</div>
+          <div class="top-obj-text">${o.text}</div>
+          <div class="top-response-text">${escHtml(o.best.response)}</div>
+          ${o.best.story ? `<div class="top-meta" style="font-style:italic;margin-top:4px">💬 ${escHtml(o.best.story)}</div>` : ''}
+          <div class="top-meta">${o.best.name} · ${formatTime(o.best.ts)}</div>
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+
+    ${totalResp === 0 ? `<div class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <div>No responses yet. Go to the Objections tab to start contributing!</div>
+    </div>` : ''}
+  `;
+  document.getElementById('last-sync-dash').textContent = syncLabel(lastSyncTime);
+}
+
+// ─── DISCUSSION ───────────────────────────────────────────────────────────────
+function buildDiscussionUI() {
+  const container = document.getElementById('discussion-container');
+  container.innerHTML = BONUS_QUESTIONS.map((q, i) => `
+    <div class="bonus-card">
+      <div class="bonus-q">
+        <div class="q-num">${i + 1}</div>
+        ${q}
+      </div>
+      <div class="field-wrap">
+        <textarea class="field-input" id="bonus-${i}" placeholder="Share your thoughts with the team…"></textarea>
+      </div>
+      <button class="btn-submit" id="bonusbtn-${i}" onclick="submitBonus(${i})">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        Share answer
+      </button>
+      <div id="bonus-existing-${i}"></div>
+    </div>`).join('');
+  renderDiscussion();
+}
+
+async function submitBonus(i) {
+  const text = (document.getElementById('bonus-' + i)?.value || '').trim();
+  if (!text) { showToast('Please enter something before submitting.'); return; }
+  const btn = document.getElementById('bonusbtn-' + i);
+  btn.disabled = true;
+  const entry = { name: getName(), text, ts: ts() };
+  if (!sharedData.bonus[i]) sharedData.bonus[i] = [];
+  sharedData.bonus[i].push(entry);
+  await saveBonusData();
+  btn.disabled = false;
+  document.getElementById('bonus-' + i).value = '';
+  updateBadges();
+  renderDiscussion();
+  showToast('✓ Answer shared with the team.', 'success');
+}
+
+function renderDiscussion() {
+  BONUS_QUESTIONS.forEach((q, i) => {
+    const el = document.getElementById('bonus-existing-' + i);
+    if (!el) return;
+    const entries = sharedData.bonus[i] || [];
+    if (!entries.length) { el.innerHTML = ''; return; }
+    el.innerHTML = `<div style="margin-top:14px; border-top:1px dashed var(--border); padding-top:12px;">
+      <div class="responses-heading">${entries.length} response${entries.length > 1 ? 's' : ''}</div>
+      ${entries.slice().reverse().map(e => `
+        <div class="response-item">
+          <div class="r-top">
+            <span class="r-name">${e.name || 'Anonymous'}</span>
+            <span class="r-time">${formatTime(e.ts)}</span>
+            ${isAdmin ? `<button class="btn-delete" onclick="deleteBonusResponse(${i}, ${e.ts})" style="margin-left:auto">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+              Delete</button>` : ''}
+          </div>
+          <div class="r-response">${escHtml(e.text)}</div>
+        </div>`).join('')}
+    </div>`;
+  });
+}
+
+// ─── CHALLENGE ────────────────────────────────────────────────────────────────
+async function submitChallenge() {
+  const objection = (document.getElementById('ch-objection')?.value || '').trim();
+  const response = (document.getElementById('ch-response')?.value || '').trim();
+  const close = (document.getElementById('ch-close')?.value || '').trim();
+  if (!objection || !response) { showToast('Please fill in at least the objection and your response.'); return; }
+  const btn = document.getElementById('ch-submit-btn');
+  btn.disabled = true;
+  const entry = { name: getName(), objection, response, close, ts: ts() };
+  sharedData.challenge.push(entry);
+  await saveChallengeData();
+  btn.disabled = false;
+  ['ch-objection','ch-response','ch-close'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  updateBadges();
+  renderChallengeStories();
+  showToast('⭐ Your story has been shared with the team!', 'success');
+}
+
+function renderChallengeStories() {
+  const el = document.getElementById('challenge-stories-list');
+  if (!el) return;
+  if (!sharedData.challenge.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="section-title" style="margin-bottom:16px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+    ${sharedData.challenge.length} stor${sharedData.challenge.length > 1 ? 'ies' : 'y'} shared
+  </div>` +
+  sharedData.challenge.slice().reverse().map((s, i, arr) => `
+    <div class="story-card">
+      <div class="story-num">Story ${arr.length - i}</div>
+      <div style="padding-top:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+          ${s.name ? `<div style="font-size:12px;color:var(--text-muted)">${s.name} · ${formatTime(s.ts)}</div>` : `<div></div>`}
+          ${isAdmin ? `<button class="btn-delete" onclick="deleteChallengeStory(${s.ts})">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+            Delete story</button>` : ''}
+        </div>
+        <div class="story-section-label">The objection</div>
+        <div class="story-text">${escHtml(s.objection)}</div>
+        <div class="story-section-label">How they responded</div>
+        <div class="story-text">${escHtml(s.response)}</div>
+        ${s.close ? `<div class="story-section-label" style="color:var(--rise-dark)">What closed it</div>
+        <div class="story-text" style="background:var(--warning-bg);padding:8px 10px;border-radius:6px;border-left:3px solid var(--rise-gold)">${escHtml(s.close)}</div>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ─── AUTO REFRESH ─────────────────────────────────────────────────────────────
+function startAutoRefresh() {
+  autoRefreshTimer = setInterval(async () => {
+    await loadAllData();
+    if (currentTab === 'dashboard') renderDashboard();
+  }, 30000); // refresh every 30s
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+async function init() {
+  buildObjectionsUI();
+  buildDiscussionUI();
+  await loadAllData();
+  startAutoRefresh();
+}
+
+// ─── ADMIN ────────────────────────────────────────────────────────────────────
+const ADMIN_PASSWORD = 'rise2024admin';
+let isAdmin = false;
+let pendingConfirmFn = null;
+
+function openAdminLogin() {
+  document.getElementById('admin-pw-modal').style.display = 'flex';
+  document.getElementById('admin-pw-input').value = '';
+  document.getElementById('pw-error').style.display = 'none';
+  setTimeout(() => document.getElementById('admin-pw-input').focus(), 50);
+}
+function closeAdminLogin() {
+  document.getElementById('admin-pw-modal').style.display = 'none';
+}
+function checkAdminPw() {
+  const val = document.getElementById('admin-pw-input').value;
+  if (val === ADMIN_PASSWORD) {
+    isAdmin = true;
+    closeAdminLogin();
+    document.getElementById('admin-header-badge').style.display = 'inline-flex';
+    document.getElementById('admin-login-btn').style.display = 'none';
+    document.getElementById('admin-logout-btn').style.display = 'inline-block';
+    document.getElementById('admin-tab-btn').style.display = 'inline-block';
+    renderObjectionsExisting();
+    renderDiscussion();
+    renderChallengeStories();
+    showToast('✓ Admin mode active.', 'success');
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('admin-pw-input').value = '';
+    document.getElementById('admin-pw-input').focus();
+  }
+}
+function adminLogout() {
+  isAdmin = false;
+  document.getElementById('admin-header-badge').style.display = 'none';
+  document.getElementById('admin-login-btn').style.display = 'inline-block';
+  document.getElementById('admin-logout-btn').style.display = 'none';
+  document.getElementById('admin-tab-btn').style.display = 'none';
+  if (currentTab === 'admin') switchTab('objections');
+  renderObjectionsExisting();
+  renderDiscussion();
+  renderChallengeStories();
+  showToast('Logged out of admin mode.');
+}
+
+function confirmDelete(title, msg, fn) {
+  pendingConfirmFn = fn;
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('confirm-msg').textContent = msg;
+  document.getElementById('confirm-overlay').style.display = 'flex';
+}
+function cancelConfirm() {
+  pendingConfirmFn = null;
+  document.getElementById('confirm-overlay').style.display = 'none';
+}
+function executeConfirm() {
+  document.getElementById('confirm-overlay').style.display = 'none';
+  if (pendingConfirmFn) { pendingConfirmFn(); pendingConfirmFn = null; }
+}
+
+async function deleteObjResponse(objId, tsVal) {
+  confirmDelete('Delete this response?', 'This will permanently remove this team member\'s response. It cannot be undone.', async () => {
+    sharedData.objections[objId] = (sharedData.objections[objId] || []).filter(e => e.ts !== tsVal);
+    if (!sharedData.objections[objId].length) delete sharedData.objections[objId];
+    await saveObjData();
+    updateBadges();
+    renderObjectionsExisting();
+    if (currentTab === 'admin') renderAdminPanel();
+    if (currentTab === 'dashboard') renderDashboard();
+    showToast('Response deleted.', '');
+  });
+}
+async function deleteBonusResponse(qIdx, tsVal) {
+  confirmDelete('Delete this answer?', 'This will permanently remove this discussion answer. It cannot be undone.', async () => {
+    sharedData.bonus[qIdx] = (sharedData.bonus[qIdx] || []).filter(e => e.ts !== tsVal);
+    if (!sharedData.bonus[qIdx].length) delete sharedData.bonus[qIdx];
+    await saveBonusData();
+    updateBadges();
+    renderDiscussion();
+    if (currentTab === 'admin') renderAdminPanel();
+    showToast('Answer deleted.', '');
+  });
+}
+async function deleteChallengeStory(tsVal) {
+  confirmDelete('Delete this story?', 'This will permanently remove this team story. It cannot be undone.', async () => {
+    sharedData.challenge = sharedData.challenge.filter(e => e.ts !== tsVal);
+    await saveChallengeData();
+    updateBadges();
+    renderChallengeStories();
+    if (currentTab === 'admin') renderAdminPanel();
+    showToast('Story deleted.', '');
+  });
+}
+async function deleteAllForObj(objId) {
+  const obj = OBJECTIONS.find(o => o.id === objId);
+  confirmDelete(`Clear all responses for objection #${objId}?`, `"${obj ? obj.text : ''}" — All ${(sharedData.objections[objId]||[]).length} response(s) will be deleted permanently.`, async () => {
+    delete sharedData.objections[objId];
+    await saveObjData();
+    updateBadges();
+    renderObjectionsExisting();
+    if (currentTab === 'admin') renderAdminPanel();
+    if (currentTab === 'dashboard') renderDashboard();
+    showToast('All responses cleared for that objection.', '');
+  });
+}
+async function nukeAll(type) {
+  const labels = { objections: 'ALL objection responses', bonus: 'ALL discussion answers', challenge: 'ALL team challenge stories' };
+  confirmDelete(`Delete ${labels[type]}?`, `This will permanently wipe every entry in this section for all users. There is no undo.`, async () => {
+    if (type === 'objections') { sharedData.objections = {}; await saveObjData(); }
+    if (type === 'bonus') { sharedData.bonus = {}; await saveBonusData(); }
+    if (type === 'challenge') { sharedData.challenge = []; await saveChallengeData(); }
+    updateBadges();
+    renderObjectionsExisting();
+    renderDiscussion();
+    renderChallengeStories();
+    if (currentTab === 'admin') renderAdminPanel();
+    if (currentTab === 'dashboard') renderDashboard();
+    showToast('Section cleared.', '');
+  });
+}
+
+function renderAdminPanel() {
+  const container = document.getElementById('admin-panel-container');
+  if (!container) return;
+  document.getElementById('last-sync-admin').textContent = syncLabel(lastSyncTime);
+
+  const totalObj = Object.values(sharedData.objections).reduce((a,b)=>a+b.length,0);
+  const totalBonus = Object.values(sharedData.bonus).reduce((a,b)=>a+b.length,0);
+  const totalCh = sharedData.challenge.length;
+
+  // Build objection records
+  let objRows = '';
+  OBJECTIONS.forEach(obj => {
+    const entries = sharedData.objections[obj.id] || [];
+    if (!entries.length) return;
+    const cat = CATEGORIES[obj.cat];
+    objRows += `<div style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span class="cat-pill" style="background:${cat.color};color:${cat.text};font-size:10px">${cat.label}</span>
+        <span style="font-size:13px;font-weight:500;color:var(--rise-dark);flex:1">${obj.text}</span>
+        <button class="btn-nuke" onclick="deleteAllForObj(${obj.id})" style="font-size:11px;padding:4px 10px">Clear all (${entries.length})</button>
+      </div>
+      ${entries.map(e => `<div class="admin-record">
+        <div class="admin-record-body">
+          <div class="admin-record-meta">${e.name || 'Anonymous'} · ${e.freq ? e.freq + ' · ' : ''}${formatTime(e.ts)}</div>
+          <div class="admin-record-text">${escHtml(e.response)}</div>
+          ${e.story ? `<div style="font-size:12px;color:var(--text-secondary);margin-top:3px;font-style:italic">Story: ${escHtml(e.story)}</div>` : ''}
+        </div>
+        <button class="btn-delete" onclick="deleteObjResponse(${obj.id}, ${e.ts})">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+          Delete
+        </button>
+      </div>`).join('')}
+    </div>`;
+  });
+
+  // Build bonus records
+  let bonusRows = '';
+  BONUS_QUESTIONS.forEach((q, i) => {
+    const entries = sharedData.bonus[i] || [];
+    if (!entries.length) return;
+    bonusRows += `<div style="margin-bottom:14px;">
+      <div style="font-size:13px;font-weight:500;color:var(--rise-dark);margin-bottom:6px">${i+1}. ${q}</div>
+      ${entries.map(e => `<div class="admin-record">
+        <div class="admin-record-body">
+          <div class="admin-record-meta">${e.name || 'Anonymous'} · ${formatTime(e.ts)}</div>
+          <div class="admin-record-text">${escHtml(e.text)}</div>
+        </div>
+        <button class="btn-delete" onclick="deleteBonusResponse(${i}, ${e.ts})">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+          Delete
+        </button>
+      </div>`).join('')}
+    </div>`;
+  });
+
+  // Build challenge records
+  let chRows = sharedData.challenge.length
+    ? sharedData.challenge.map((s, i) => `<div class="admin-record">
+        <div class="admin-record-body">
+          <div class="admin-record-meta">${s.name || 'Anonymous'} · ${formatTime(s.ts)}</div>
+          <div class="admin-record-text"><strong>Objection:</strong> ${escHtml(s.objection)}</div>
+          <div class="admin-record-text" style="margin-top:2px"><strong>Response:</strong> ${escHtml(s.response)}</div>
+          ${s.close ? `<div class="admin-record-text" style="margin-top:2px"><strong>Close:</strong> ${escHtml(s.close)}</div>` : ''}
+        </div>
+        <button class="btn-delete" onclick="deleteChallengeStory(${s.ts})">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+          Delete
+        </button>
+      </div>`).join('')
+    : '<div style="font-size:13px;color:var(--text-muted);padding:8px 0">No stories submitted yet.</div>';
+
+  container.innerHTML = `
+    <div style="background:var(--rise-dark);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span class="admin-badge">⚙ Admin Panel</span>
+      <span style="font-size:13px;color:var(--rise-mid)">Full control over all submitted data. Deletions are immediate and permanent.</span>
+      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-nuke" onclick="nukeAll('objections')" style="color:#ffb3b3;border-color:rgba(255,100,100,0.3)">Clear all responses</button>
+        <button class="btn-nuke" onclick="nukeAll('bonus')" style="color:#ffb3b3;border-color:rgba(255,100,100,0.3)">Clear all discussion</button>
+        <button class="btn-nuke" onclick="nukeAll('challenge')" style="color:#ffb3b3;border-color:rgba(255,100,100,0.3)">Clear all stories</button>
+      </div>
+    </div>
+
+    <div class="admin-panel-section">
+      <div class="admin-panel-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Objection responses
+        <span style="font-size:12px;font-weight:400;color:var(--text-muted)">${totalObj} total</span>
+      </div>
+      ${objRows || '<div style="font-size:13px;color:var(--text-muted);padding:8px 0">No responses submitted yet.</div>'}
+    </div>
+
+    <div class="admin-panel-section">
+      <div class="admin-panel-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        Discussion answers
+        <span style="font-size:12px;font-weight:400;color:var(--text-muted)">${totalBonus} total</span>
+      </div>
+      ${bonusRows || '<div style="font-size:13px;color:var(--text-muted);padding:8px 0">No answers submitted yet.</div>'}
+    </div>
+
+    <div class="admin-panel-section">
+      <div class="admin-panel-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        Team challenge stories
+        <span style="font-size:12px;font-weight:400;color:var(--text-muted)">${totalCh} total</span>
+      </div>
+      ${chRows}
+    </div>
+  `;
+}
+
+init();
+</script>
+</body>
+</html>
